@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, Text, View, StatusBar, Image } from "react-native";
+import {StyleSheet, Text, View, StatusBar, Image, MaskedViewIOS } from 'react-native';
 
 export default function Loading(){
     return (
@@ -12,6 +12,7 @@ export default function Loading(){
                 <Text style = {styles.text}>Please wait for the Weather!!</Text>
             </View>
         </View>
+       
     );
     
 }

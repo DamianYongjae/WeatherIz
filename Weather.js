@@ -4,29 +4,20 @@ import PropTypes from "prop-types";
 import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
 import checkID from './CheckID';
 import weatherOptions from './WeatherOptions';
+import { Alert } from "react-native";
+import App from "./App";
+
 
 export default function Weather({temp, condition, description}) {
-
     position = checkID(condition);
     weather = weatherOptions[position];
     return (
         <ImageBackground style={styles.backgroundImage} source={{url: weather.imageName}}>
-            
             <View style={styles.container}>
                 
                 <StatusBar barStyle="light-content" />
                 <View style={styles.halfContainer}>
-                    <View style={{flex:0.3, paddingLeft:"80%", marginTop:-100}}>
-                        <FontAwesome.Button style={styles.button} 
-                            name={'info'} 
-                            size={35} 
-                            color={"white"}
-                            borderRadius={30}
-                            onPress={()=> console.log('Button pressed')}
-                            iconStyle={
-                                {paddingLeft:10}
-                        }/>
-                    </View>
+                    
                     
                     <MaterialCommunityIcons 
                         size={96}
@@ -62,6 +53,33 @@ export default function Weather({temp, condition, description}) {
                     }>{weather.subtitle}</Text>
                 </View>
             </View>
+            <View style={{flexDirection:'row', flex:0.05, marginTop:-5, margin: 20, justifyContent:"space-between"}}>
+                <FontAwesome.Button style={styles.button} 
+                    name={'refresh'} 
+                    size={20} 
+                    color={"white"}
+                    borderRadius={20}
+                    onPress={()=> {
+                        new App().getLocation();
+                    }}
+                    iconStyle={
+                        {paddingLeft:10,
+                        paddingBottom: 5}
+                }/>
+                <FontAwesome.Button style={styles.button} 
+                    name={'info'} 
+                    size={20} 
+                    color={"white"}
+                    borderRadius={20}
+                    onPress={()=> {
+                        Alert.alert("Image credit", "Thunderstorm: Fábio Hanashiro\nDrizzle: Matthew Henry\nRain: Alex J\nSnow: Andre Benz\nAtmosphere: Connor McSheffrey\nClear: Foad Roshan\nClouds: Jiri Benedikt\nFrom unsplash.com");
+                    }}
+                    iconStyle={
+                        {paddingLeft:10,
+                        paddingBottom: 5}
+                }/>
+                        
+            </View>
         </ImageBackground>
     );
 }
@@ -96,14 +114,12 @@ const styles = StyleSheet.create({
         flex: 1
       },
     button:{
-        width: 50,
-        height: 50,
+        width: 40,
+        height: 40,
         justifyContent: "center",
         alignContent: "center",
-        borderRadius:40,
+        borderRadius:30,
         padding:0,
-        margin: 0
-        
+        margin: 0   
     }
-
 });

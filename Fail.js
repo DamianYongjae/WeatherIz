@@ -1,27 +1,33 @@
 import React from "react";
-import {StyleSheet, Text, View } from "react-native";
+import {StyleSheet, Text, View, ImageBackground, Image } from "react-native";
 
-export default function Loading(){
+export default function fail(){
     return (
-        <View style = {styles.container}>
-            <Text style = {styles.text}>Oops! I cound't Find you</Text>
-            <Text style = {styles.text}>Please Turn on Location Service</Text>
+        <ImageBackground style = {styles.background} imageStyle={{resizeMode: 'stretch'}} source={{url:"https://images.unsplash.com/photo-1516246843873-9d12356b6fab?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80"}}>
+            <View style = {styles.container}>
+                <Text style = {styles.text}>Oops! I cound't Find you</Text>
+                <Text style = {styles.text}>Please Turn on Location Service</Text>
 
-        </View>
+            </View>
+        </ImageBackground>
     );
     
 }
 
 const styles = StyleSheet.create({
-    container: {
+    background: {
         flex: 1,
-        justifyContent: "flex-end",
-        paddingHorizontal: 30,
-        paddingVertical: 100,
-        backgroundColor: "#FDF6AA"
+        width:"100%",
+        height:null,        
+    },
+    container: {
+        marginTop: 650,
+        flex: 0.5,
+        alignItems: 'center'
     },
     text: {
-        color: "#2c2c2c",
+ 
+        color: "#93F1AF",
         fontSize: 30
     }
 });
