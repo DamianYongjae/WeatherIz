@@ -1,7 +1,6 @@
 import React from 'react';
 import { Alert } from "react-native";
 import Loading from "./Loading";
-import Fail from "./Fail";
 import * as Location from "expo-location";
 import axios from "axios";
 import Weather from "./Weather";
@@ -9,7 +8,7 @@ import Weather from "./Weather";
 const API_KEY = "198e5d625b96da2777e9518b06bc91b7";
 
 export default class extends React.Component {
-
+  
   state = {
     isLoading: true
   };
@@ -48,7 +47,7 @@ export default class extends React.Component {
 
   render() {
     const {isLoading, temp, condition, description} = this.state;
-
+    
       return isLoading ? (
         <Loading />
       ) : (
