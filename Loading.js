@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, Text, View, StatusBar, Image, MaskedViewIOS } from 'react-native';
+import {StyleSheet, Text, View, StatusBar, Image } from 'react-native';
 
 export default function Loading(){
     return (
@@ -35,6 +35,6 @@ const styles = StyleSheet.create({
     },
     text: {
         color: "#2c2c2c",
-        fontSize: 30
+        fontSize: 30,
     }
 });
