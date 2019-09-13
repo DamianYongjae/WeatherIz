@@ -6,38 +6,8 @@ import { FontAwesome, Feather } from "@expo/vector-icons";
 import checkID from './CheckID';
 import weatherOptions from './WeatherOptions';
 import { Alert } from "react-native";
-import * as Location from "expo-location";
-import axios from "axios";
-
-
-const API_KEY = "198e5d625b96da2777e9518b06bc91b7";
-
-getWeather = async (latitude, longitude) => {
-    const {
-      data: {
-        main: { temp },
-        weather
-      }
-    } = await axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=${API_KEY}&units=imperial`);
-
-    condition = weather[0].id;
-    currentTemp = temp;
-    description = weather[0].description;
-    return {condition, currentTemp, description};
-  };
-
-getLocation = async () => {
-    try {
-      await Location.requestPermissionsAsync();
-      const {
-        coords: {latitude, longitude}
-      } = await Location.getCurrentPositionAsync();
-      information = await getWeather(latitude,longitude);
-      return information;
-    }catch (error){
-      Alert.alert("Problem","Location service needed.");
-    }
-}
+import getWeather from './GetWeather';
+import { AdMobBanner } from "expo";
 
 export default function Weather({temp, condition, description}) {
     position = checkID(condition);
@@ -55,8 +25,8 @@ export default function Weather({temp, condition, description}) {
                     size={20} 
                     borderRadius={20}
                     onPress={ async ()=> {
-                        const value = await getLocation();
-                        
+                        const value = await getWeather();
+
                         <Weather temp={Math.round(value.currentTemp)} condition={value.condition} description={value.description} />
 
                     }}
@@ -163,8 +133,8 @@ const styles = StyleSheet.create({
         paddingTop: 10
     },
     textContainer: {
-        marginTop: 90,
-        marginBottom: 60,
+        marginTop: 60,
+        marginBottom: 80,
         marginLeft: 20,
         marginRight: 20,
         paddingTop: 10,

@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "flex-end",
         paddingHorizontal: 30,
-        paddingVertical: 100,
+        paddingVertical: 100
     },
     text: {
         color: "#2c2c2c",

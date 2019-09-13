@@ -1,12 +1,8 @@
 import React from 'react';
-import { Alert } from "react-native";
 import Loading from "./Loading";
-import * as Location from "expo-location";
-import axios from "axios";
 import Weather from "./Weather";
 import * as Font from 'expo-font';
-
-const API_KEY = "198e5d625b96da2777e9518b06bc91b7";
+import getWeather from './GetWeather';
 
 export default class extends React.Component {
   
@@ -14,32 +10,15 @@ export default class extends React.Component {
     isLoading: true
   };
 
-  getWeather = async (latitude, longitude) => {
-    const {
-      data: {
-        main: { temp },
-        weather
-      }
-    } = await axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=${API_KEY}&units=imperial`);
+  performMainAction = async () => {
+    const value = await getWeather();
+
     this.setState({
       isLoading: false,
-      condition: weather[0].id,
-      temp,
-      description: weather[0].description,
-    });
-    
-  };
-
-  getLocation = async () => {
-    try {
-      await Location.requestPermissionsAsync();
-      const {
-        coords: {latitude, longitude}
-      } = await Location.getCurrentPositionAsync();
-      this.getWeather(latitude,longitude);
-    }catch (error){
-      Alert.alert("Problem","Location service needed.");
-    }
+      condition: value.condition,
+      temp: value.currentTemp,
+      description: value.description
+    })
   }
 
   componentDidMount(){
@@ -51,7 +30,7 @@ export default class extends React.Component {
       'indieFlower': require('./assets/fonts/IndieFlower.ttf'),
       'pacifico-regular': require('./assets/fonts/Pacifico-Regular.ttf')
     });
-    this.getLocation();
+    this.performMainAction();
     
   }
 
