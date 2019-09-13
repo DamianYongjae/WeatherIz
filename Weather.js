@@ -13,7 +13,7 @@ export default function Weather({temp, condition, description}) {
     position = checkID(condition);
     weather = weatherOptions[position];
     return (
-        <ImageBackground style={styles.backgroundImage} source={{url: weather.imageName}}>
+        <ImageBackground style={styles.backgroundImage} source={{uri: weather.imageName}} resizeMode='cover' >
             <Header style = {styles.header}
                 containerStyle={{
                     backgroundColor: "#569BE5",
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     backgroundImage: {
         flex:1,
         width: '100%',
-        height: '100%',
+        height: '100%'
     },
     header: {
         backgroundColor: "#569BE5",
