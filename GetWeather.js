@@ -1,5 +1,6 @@
 import * as Location from "expo-location";
 import axios from "axios";
+import {Alert} from "react-native";
 
 const API_KEY = "198e5d625b96da2777e9518b06bc91b7";
 
