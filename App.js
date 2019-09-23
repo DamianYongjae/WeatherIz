@@ -3,6 +3,7 @@ import Loading from "./Loading";
 import Weather from "./Weather";
 import * as Font from 'expo-font';
 import getWeather from './GetWeather';
+import Fail from "./Fail";
 
 export default class extends React.Component {
   
@@ -36,11 +37,11 @@ export default class extends React.Component {
 
   render() {
     const {isLoading, temp, condition, description} = this.state;
-    
       return isLoading ? (
         <Loading />
       ) : (
         <Weather temp={Math.round(temp)} condition={condition} description={description} />
+          // <Fail temp={Math.round(temp)} condition={condition} description={description}/>
       );
     }
   

@@ -5,106 +5,221 @@ import PropTypes from "prop-types";
 import { FontAwesome, Feather } from "@expo/vector-icons";
 import checkID from './CheckID';
 import weatherOptions from './WeatherOptions';
+import Fail from './Fail'
 import { Alert } from "react-native";
 import getWeather from './GetWeather';
 import { AdMobBanner } from "expo";
 
-export default function Weather({temp, condition, description}) {
-    position = checkID(condition);
-    weather = weatherOptions[position];
-    return (
-        <ImageBackground style={styles.backgroundImage} source={{uri: weather.imageName}} resizeMode='cover' >
-            <Header style = {styles.header}
-                containerStyle={{
-                    backgroundColor: "#569BE5",
-                    borderColor: "#569BE5",
-                    opacity: 0.8
-                }}
-                leftComponent={<FontAwesome.Button style={styles.button} 
-                    name={'refresh'} 
+export default class Weather extends React.Component {
+    constructor(props){
+        super(props);
+        this.position = checkID(condition);
+        weather = weatherOptions[this.position];
+    }
+
+    fail() {
+        console.log("press");
+        <Fail />
+    }
+
+
+    render(){
+        let temp = this.props.temp;
+        return (
+            <ImageBackground style={styles.backgroundImage} source={{uri: weather.imageName}} resizeMode='cover' >
+                <Header style = {styles.header}
+                    containerStyle={{
+                        backgroundColor: "#569BE5",
+                        borderColor: "#569BE5",
+                        opacity: 0.8
+                    }}
+                    leftComponent={<FontAwesome.Button style={styles.button} 
+                        name={'refresh'} 
+                        size={20} 
+                        borderRadius={20}
+                        onPress={ async ()=> {
+                            const value = await getWeather();
+    
+                            // this.setState({weather: value.weather,description: value.description, temp:Math.round(value.currentTemp)});
+                            <Weather temp={Math.round(value.currentTemp)} condition={value.condition} description={value.description} />
+    
+                        }}
+                        iconStyle={
+                            {paddingLeft:10,
+                            paddingBottom: 5}
+                    }/>}
+                    centerComponent={{ text: 'weatherIz', 
+                                        style: { 
+                                            color: '#DADBE5', 
+                                            fontSize: 26, 
+                                            fontFamily:'permanentMarker-regular',
+                                            textShadowColor:'#565150',
+                                            textShadowOffset: {
+                                                width:-2,
+                                                height:2
+                                            },
+                                            textShadowRadius:2 } 
+                                    }}
+                    rightComponent={<FontAwesome.Button style={styles.button} 
+                    name={'info'} 
                     size={20} 
                     borderRadius={20}
-                    onPress={ async ()=> {
-                        const value = await getWeather();
-
-                        <Weather temp={Math.round(value.currentTemp)} condition={value.condition} description={value.description} />
+                    onPress={()=> {
+                        // return <Fail temp={Math.round(temp)} condition={condition} description={description}/>
+                        // Alert.alert("Image credit", "Thunderstorm: Fábio Hanashiro\nDrizzle: Matthew Henry\nRain: Alex J\nSnow: Andre Benz\nAtmosphere: Connor McSheffrey\nClear: Foad Roshan\nClouds: Jiri Benedikt\nFrom unsplash.com");
+                        this.fail();    
 
                     }}
                     iconStyle={
                         {paddingLeft:10,
                         paddingBottom: 5}
                 }/>}
-                centerComponent={{ text: 'weatherIz', 
-                                    style: { 
-                                        color: '#DADBE5', 
-                                        fontSize: 26, 
-                                        fontFamily:'permanentMarker-regular',
-                                        textShadowColor:'#565150',
-                                        textShadowOffset: {
-                                            width:-2,
-                                            height:2
-                                        },
-                                        textShadowRadius:2 } 
-                                }}
-                rightComponent={<FontAwesome.Button style={styles.button} 
-                name={'info'} 
-                size={20} 
-                borderRadius={20}
-                onPress={()=> {
-                    Alert.alert("Image credit", "Thunderstorm: Fábio Hanashiro\nDrizzle: Matthew Henry\nRain: Alex J\nSnow: Andre Benz\nAtmosphere: Connor McSheffrey\nClear: Foad Roshan\nClouds: Jiri Benedikt\nFrom unsplash.com");
-                }}
-                iconStyle={
-                    {paddingLeft:10,
-                    paddingBottom: 5}
-            }/>}
-            />
-            <View style={styles.container}>
-                
-                <StatusBar barStyle="light-content" />
-                <View style={styles.halfContainer}>
+                />
+                <View style={styles.container}>
                     
-                    
-                    <Feather 
-                        size={96}
-                        name={weather.iconName}
-                        color={weather.color}
-                        paddingBottom={20}
-                    />
-                    <Text style={
-                        {fontSize: 50, 
-                        color:weather.color,
-                        marginTop: 10,
-                        fontFamily: 'indieFlower'}
-                    }>{temp}°</Text>
-                    <Text style={
-                        {fontSize: 44,
-                        marginBottom: 10,
-                        textAlign: "left",
-                        color:weather.color,
-                        fontFamily: 'chilanka-regular'}
-                    }>{(description).charAt(0).toUpperCase()+(description).slice(1)}</Text>   
+                    <StatusBar barStyle="light-content" />
+                    <View style={styles.halfContainer}>
+                        
+                        
+                        <Feather 
+                            size={96}
+                            name={weather.iconName}
+                            color={weather.color}
+                            paddingBottom={20}
+                        />
+                        <Text style={
+                            {fontSize: 50, 
+                            color:weather.color,
+                            marginTop: 10,
+                            fontFamily: 'indieFlower'}
+                        }>{temp}°</Text>
+                        <Text style={
+                            {fontSize: 44,
+                            marginBottom: 10,
+                            textAlign: "left",
+                            color:weather.color,
+                            fontFamily: 'chilanka-regular'}
+                        }>{(description).charAt(0).toUpperCase()+(description).slice(1)}</Text>   
+                    </View>
+    
+                    <View style={styles.textContainer}>
+                        <Text style={
+                            {fontSize: 34,
+                            fontWeight: "400",
+                            color:weather.color,
+                            fontFamily: 'pacifico-regular'
+                            }
+                        }>{weather.title}</Text>
+                        <Text style={
+                            {fontWeight: "600",
+                            fontSize: 24,
+                            textAlign: "left",
+                            color:weather.color,
+                            fontFamily: 'indieFlower'}
+                        }>{weather.subtitle}</Text>
+                    </View>
                 </View>
-
-                <View style={styles.textContainer}>
-                    <Text style={
-                        {fontSize: 34,
-                        fontWeight: "400",
-                        color:weather.color,
-                        fontFamily: 'pacifico-regular'
-                        }
-                    }>{weather.title}</Text>
-                    <Text style={
-                        {fontWeight: "600",
-                        fontSize: 24,
-                        textAlign: "left",
-                        color:weather.color,
-                        fontFamily: 'indieFlower'}
-                    }>{weather.subtitle}</Text>
-                </View>
-            </View>
-        </ImageBackground>
-    );
+            </ImageBackground>
+        );
+    }
 }
+
+// export default function Weather({temp, condition, description}) {
+//     position = checkID(condition);
+//     weather = weatherOptions[position];
+//     return (
+//         <ImageBackground style={styles.backgroundImage} source={{uri: weather.imageName}} resizeMode='cover' >
+//             <Header style = {styles.header}
+//                 containerStyle={{
+//                     backgroundColor: "#569BE5",
+//                     borderColor: "#569BE5",
+//                     opacity: 0.8
+//                 }}
+//                 leftComponent={<FontAwesome.Button style={styles.button} 
+//                     name={'refresh'} 
+//                     size={20} 
+//                     borderRadius={20}
+//                     onPress={ async ()=> {
+//                         const value = await getWeather();
+
+//                         <Weather temp={Math.round(value.currentTemp)} condition={value.condition} description={value.description} />
+
+//                     }}
+//                     iconStyle={
+//                         {paddingLeft:10,
+//                         paddingBottom: 5}
+//                 }/>}
+//                 centerComponent={{ text: 'weatherIz', 
+//                                     style: { 
+//                                         color: '#DADBE5', 
+//                                         fontSize: 26, 
+//                                         fontFamily:'permanentMarker-regular',
+//                                         textShadowColor:'#565150',
+//                                         textShadowOffset: {
+//                                             width:-2,
+//                                             height:2
+//                                         },
+//                                         textShadowRadius:2 } 
+//                                 }}
+//                 rightComponent={<FontAwesome.Button style={styles.button} 
+//                 name={'info'} 
+//                 size={20} 
+//                 borderRadius={20}
+//                 onPress={()=> {
+//                     Alert.alert("Image credit", "Thunderstorm: Fábio Hanashiro\nDrizzle: Matthew Henry\nRain: Alex J\nSnow: Andre Benz\nAtmosphere: Connor McSheffrey\nClear: Foad Roshan\nClouds: Jiri Benedikt\nFrom unsplash.com");
+//                 }}
+//                 iconStyle={
+//                     {paddingLeft:10,
+//                     paddingBottom: 5}
+//             }/>}
+//             />
+//             <View style={styles.container}>
+                
+//                 <StatusBar barStyle="light-content" />
+//                 <View style={styles.halfContainer}>
+                    
+                    
+//                     <Feather 
+//                         size={96}
+//                         name={weather.iconName}
+//                         color={weather.color}
+//                         paddingBottom={20}
+//                     />
+//                     <Text style={
+//                         {fontSize: 50, 
+//                         color:weather.color,
+//                         marginTop: 10,
+//                         fontFamily: 'indieFlower'}
+//                     }>{temp}°</Text>
+//                     <Text style={
+//                         {fontSize: 44,
+//                         marginBottom: 10,
+//                         textAlign: "left",
+//                         color:weather.color,
+//                         fontFamily: 'chilanka-regular'}
+//                     }>{(description).charAt(0).toUpperCase()+(description).slice(1)}</Text>   
+//                 </View>
+
+//                 <View style={styles.textContainer}>
+//                     <Text style={
+//                         {fontSize: 34,
+//                         fontWeight: "400",
+//                         color:weather.color,
+//                         fontFamily: 'pacifico-regular'
+//                         }
+//                     }>{weather.title}</Text>
+//                     <Text style={
+//                         {fontWeight: "600",
+//                         fontSize: 24,
+//                         textAlign: "left",
+//                         color:weather.color,
+//                         fontFamily: 'indieFlower'}
+//                     }>{weather.subtitle}</Text>
+//                 </View>
+//             </View>
+//         </ImageBackground>
+//     );
+// }
 
 Weather.propTypes = {
     temp: PropTypes.number.isRequired,
