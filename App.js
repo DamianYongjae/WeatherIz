@@ -4,6 +4,40 @@ import Weather from "./Weather";
 import * as Font from 'expo-font';
 import getWeather from './GetWeather';
 import Fail from "./Fail";
+import { createAppContainer, navigation } from 'react-navigation';
+import {createStackNavigator } from 'react-navigation-stack';
+
+const Root = createStackNavigator({
+  Home: Weather,
+  Fail: Fail,
+  },
+  
+  {
+      initialRouteName:'Home',
+      defaultNavigationOptions: {
+        title: 'weatherIz',
+        headerStyle: {
+            backgroundColor: "#569BE5",
+            borderColor: "#569BE5",
+            opacity: 0.8            
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            color: '#DADBE5', 
+            fontSize: 26, 
+            fontFamily:'permanentMarker-regular',
+            textShadowColor:'#565150',
+            textShadowOffset: {
+                width:-2,
+                height:2
+            },
+            textShadowRadius:2             
+        },
+      }
+      
+});
+
+const AppContainer = createAppContainer(Root);
 
 export default class extends React.Component {
   
@@ -16,9 +50,9 @@ export default class extends React.Component {
 
     this.setState({
       isLoading: false,
-      condition: value.condition,
-      temp: value.currentTemp,
-      description: value.description
+      // condition: value.condition,
+      // temp: value.currentTemp,
+      // description: value.description
     })
   }
 
@@ -36,11 +70,13 @@ export default class extends React.Component {
   }
 
   render() {
-    const {isLoading, temp, condition, description} = this.state;
+    const {isLoading} = this.state;
       return isLoading ? (
         <Loading />
       ) : (
-        <Weather temp={Math.round(temp)} condition={condition} description={description} />
+        <AppContainer />
+        // <AppContainer condition={condition} temp={temp} description={description}  />
+        // <Weather temp={Math.round(temp)} condition={condition} description={description} navigation={navigation}/>
           // <Fail temp={Math.round(temp)} condition={condition} description={description}/>
       );
     }

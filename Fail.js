@@ -2,18 +2,12 @@ import React from "react";
 import {StyleSheet, Text, View, ImageBackground, Image } from "react-native";
 
 export default class Fail extends React.Component{
-    constructor(props) {
-        super(props);
-        // console.log(this.props.temp)
-    }
-
-    // state = {
-        // a: temp
+    // constructor(props) {
+    //     super(props);
     // }
     
     render(){
-        // const a = this.state;
-        // console.log(a);
+
         return (
                     <ImageBackground style = {styles.background} imageStyle={{resizeMode: 'stretch'}} source={{url:"https://images.unsplash.com/photo-1516246843873-9d12356b6fab?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80"}}>
                         <View style = {styles.container}>
@@ -21,6 +15,7 @@ export default class Fail extends React.Component{
                             <Text style = {styles.text}>Please Turn on Location Service</Text>
             
                         </View>
+                       
                     </ImageBackground>
                 );
     }

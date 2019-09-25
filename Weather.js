@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, StatusBar, ImageBackground } from "react-native";
-import { Header } from 'react-native-elements'
+import { Header, Button } from 'react-native-elements'
 import PropTypes from "prop-types";
 import { FontAwesome, Feather } from "@expo/vector-icons";
 import checkID from './CheckID';
@@ -8,26 +8,97 @@ import weatherOptions from './WeatherOptions';
 import Fail from './Fail'
 import { Alert } from "react-native";
 import getWeather from './GetWeather';
+import MyHeader from './MyHeader';
 import { AdMobBanner } from "expo";
 
 export default class Weather extends React.Component {
     constructor(props){
         super(props);
-        this.position = checkID(condition);
-        weather = weatherOptions[this.position];
+    }
+
+    static navigationOptions = ({navigation}) => {
+
+        return {
+
+        
+        // title: 'weatherIz',
+        // headerStyle: {
+        //     backgroundColor: "#569BE5",
+        //     borderColor: "#569BE5",
+        //     opacity: 0.8            
+        // },
+        // headerTintColor: '#fff',
+        // headerTitleStyle: {
+        //     color: '#DADBE5', 
+        //     fontSize: 26, 
+        //     fontFamily:'permanentMarker-regular',
+        //     textShadowColor:'#565150',
+        //     textShadowOffset: {
+        //         width:-2,
+        //         height:2
+        //     },
+        //     textShadowRadius:2             
+        // },
+        headerRight: (
+            <Button
+                onPress={() => {
+                    navigation.navigate('Fail');
+                }}
+                icon = {
+                    <FontAwesome
+                        name="info"
+                        size={20}
+                        color="white" />
+                } 
+                marginRight={20}
+                
+            />),
+
+            
+            // <FontAwesome.Button style={styles.button} 
+            //         name={'info'} 
+            //         size={20} 
+            //         borderRadius={20}
+            //         onPress={()=> {
+            //             // return <Fail temp={Math.round(temp)} condition={condition} description={description}/>
+            //             // Alert.alert("Image credit", "Thunderstorm: Fábio Hanashiro\nDrizzle: Matthew Henry\nRain: Alex J\nSnow: Andre Benz\nAtmosphere: Connor McSheffrey\nClear: Foad Roshan\nClouds: Jiri Benedikt\nFrom unsplash.com");
+            //             // this.fail();    
+            //             this.props.navigation.navigate('Fail');}}
+            //             iconStyle={
+            //                 {paddingLeft:10,
+            //                 paddingBottom: 5}
+            // }/>
+
+            };
     }
 
     fail() {
         console.log("press");
-        <Fail />
+        // return <Fail />
+        this.props.navigation.navigate('Fail')
     }
 
+    performAction = async () => {
+        const value = await getWeather();
+        
+        temp = Math.round(value.currentTemp);
+        return {condition, temp, description};
+    }
+    
 
     render(){
-        let temp = this.props.temp;
+        const value = this.performAction();
+        console.log(currentTemp);
+        
+        let temp= Math.round(currentTemp);
+
+        let position = checkID(condition);
+        let weather = weatherOptions[position];
+
         return (
+            
             <ImageBackground style={styles.backgroundImage} source={{uri: weather.imageName}} resizeMode='cover' >
-                <Header style = {styles.header}
+                {/* <Header style = {styles.header}
                     containerStyle={{
                         backgroundColor: "#569BE5",
                         borderColor: "#569BE5",
@@ -67,14 +138,15 @@ export default class Weather extends React.Component {
                     onPress={()=> {
                         // return <Fail temp={Math.round(temp)} condition={condition} description={description}/>
                         // Alert.alert("Image credit", "Thunderstorm: Fábio Hanashiro\nDrizzle: Matthew Henry\nRain: Alex J\nSnow: Andre Benz\nAtmosphere: Connor McSheffrey\nClear: Foad Roshan\nClouds: Jiri Benedikt\nFrom unsplash.com");
-                        this.fail();    
+                        // this.fail();    
+                        this.props.navigation.navigate('Fail');
 
                     }}
                     iconStyle={
                         {paddingLeft:10,
                         paddingBottom: 5}
                 }/>}
-                />
+                /> */}
                 <View style={styles.container}>
                     
                     <StatusBar barStyle="light-content" />
