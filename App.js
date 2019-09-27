@@ -38,7 +38,8 @@ const Root = createStackNavigator({
         },
         headerBackTitle: null,
         headerLeftContainerStyle: {
-          marginLeft: 15
+          marginLeft: 15,
+          color: 'white'
         }
       }
       
