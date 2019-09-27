@@ -51,7 +51,7 @@ export default function MyHeader(){
                     borderRadius={20}
                     onPress={()=> {
                         // return <Fail temp={Math.round(temp)} condition={condition} description={description}/>
-                        // Alert.alert("Image credit", "Thunderstorm: Fábio Hanashiro\nDrizzle: Matthew Henry\nRain: Alex J\nSnow: Andre Benz\nAtmosphere: Connor McSheffrey\nClear: Foad Roshan\nClouds: Jiri Benedikt\nFrom unsplash.com");
+                        // Alert.alert("Image credit", "Thunderstorm: Fábio Hanashiro\nDrizzle: Matthew Henry\nRain: Alex J\nSnow: Andre Benz\nAtmosphere: Connor McSheffrey\nClear: Foad Roshan\nClouds: Nick Dietrich\nFrom unsplash.com");
                         // this.fail();    
                         this.props.navigation.navigate('Fail');
 

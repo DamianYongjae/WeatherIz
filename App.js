@@ -3,13 +3,13 @@ import Loading from "./Loading";
 import Weather from "./Weather";
 import * as Font from 'expo-font';
 import getWeather from './GetWeather';
-import Fail from "./Fail";
-import { createAppContainer, navigation } from 'react-navigation';
+import Thanks from "./Thanks";
+import { createAppContainer } from 'react-navigation';
 import {createStackNavigator } from 'react-navigation-stack';
 
 const Root = createStackNavigator({
   Home: Weather,
-  Fail: Fail,
+  Thanks: Thanks,
   },
   
   {
@@ -19,7 +19,8 @@ const Root = createStackNavigator({
         headerStyle: {
             backgroundColor: "#569BE5",
             borderColor: "#569BE5",
-            opacity: 0.8            
+            opacity: 0.8,
+            marginRight: 10
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
@@ -31,8 +32,14 @@ const Root = createStackNavigator({
                 width:-2,
                 height:2
             },
-            textShadowRadius:2             
+            textShadowRadius:2,
+            alignContent: 'center',
+            justifyContent: 'center'              
         },
+        headerBackTitle: null,
+        headerLeftContainerStyle: {
+          marginLeft: 15
+        }
       }
       
 });
@@ -50,9 +57,6 @@ export default class extends React.Component {
 
     this.setState({
       isLoading: false,
-      // condition: value.condition,
-      // temp: value.currentTemp,
-      // description: value.description
     })
   }
 
@@ -75,9 +79,6 @@ export default class extends React.Component {
         <Loading />
       ) : (
         <AppContainer />
-        // <AppContainer condition={condition} temp={temp} description={description}  />
-        // <Weather temp={Math.round(temp)} condition={condition} description={description} navigation={navigation}/>
-          // <Fail temp={Math.round(temp)} condition={condition} description={description}/>
       );
     }
   

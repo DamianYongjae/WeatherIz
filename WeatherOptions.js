@@ -52,12 +52,12 @@ const weatherOptions = {
       },
       Clouds: {
         iconName: "cloud",
-        imageName: "https://images.unsplash.com/photo-1515055624275-799c2be62ed7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+        imageName: "https://images.unsplash.com/photo-1534518392971-43f6e348dd15?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
         // gradient: ["#D7D2CC", "#304352"],
         title: "Clouds",
         subtitle: "I know, boring and gloomy",
         color: "#ffffff",
-        author: "Jiri Benedikt"
+        author: "Nick Dietrich"
       }
 };
 export default weatherOptions;
